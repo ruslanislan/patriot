@@ -35,81 +35,90 @@ class MainScreen extends StatelessWidget {
               SizedBox(
                 height: 10.h,
               ),
-              ListView.builder(
-                itemCount: list.length,
-                itemBuilder: (BuildContext context, int index) {
-                  return Container(
-                    width: 335.w,
-                    height: 155.h,
-                    padding: EdgeInsets.symmetric(
-                      horizontal: 20.w,
-                    ),
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(14.r),
-                      color: const Color(0xFF499356),
-                    ),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
+              Expanded(
+                child: ListView.builder(
+                  itemCount: list.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    return Column(
                       children: [
-                        SizedBox(
-                          height: 20.h,
-                        ),
-                        SizedBox(
-                          width: 98.w,
-                          height: 12.h,
-                          child: Text(
-                            list[index].list![0].eventDate.toString(),
-                            style: TextStyle(
-                              fontSize: 10.sp,
-                              fontWeight: FontWeight.w400,
-                              height: 1.21,
-                              color: Colors.white.withOpacity(0.4),
-                            ),
+                        Container(
+                          width: 335.w,
+                          height: 155.h,
+                          padding: EdgeInsets.symmetric(
+                            horizontal: 20.w,
+                          ),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(14.r),
+                            color: const Color(0xFF499356),
+                          ),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              SizedBox(
+                                height: 20.h,
+                              ),
+                              SizedBox(
+                                width: 98.w,
+                                height: 12.h,
+                                child: Text(
+                                  list[index].list![0].eventDate.toString(),
+                                  style: TextStyle(
+                                    fontSize: 10.sp,
+                                    fontWeight: FontWeight.w400,
+                                    height: 1.21,
+                                    color: Colors.white.withOpacity(0.4),
+                                  ),
+                                ),
+                              ),
+                              SizedBox(
+                                height: 17.h,
+                              ),
+                              Text(
+                                list[index].list![0].eventName!,
+                                style: TextStyle(
+                                  fontSize: 15.sp,
+                                  fontWeight: FontWeight.w600,
+                                  color: const Color(0xFF62AD6F),
+                                  height: 18.15 / 15,
+                                ),
+                              ),
+                              SizedBox(
+                                height: 5.h,
+                              ),
+                              Text(
+                                list[index].list![0].eventDescription!,
+                                style: TextStyle(
+                                  fontSize: 13.sp,
+                                  fontWeight: FontWeight.w600,
+                                  color: Colors.white,
+                                  height: 15.73 / 13,
+                                ),
+                              ),
+                              SizedBox(
+                                height: 6.5.h,
+                              ),
+                              Divider(
+                                height: 27.h,
+                              ),
+                              Text(
+                                list[index].address!,
+                                style: TextStyle(
+                                  fontSize: 13.sp,
+                                  fontWeight: FontWeight.w600,
+                                  color: Colors.white,
+                                  height: 15.73 / 13,
+                                ),
+                              ),
+                            ],
                           ),
                         ),
                         SizedBox(
-                          height: 17.h,
-                        ),
-                        Text(
-                          list[index].list![0].eventName!,
-                          style: TextStyle(
-                            fontSize: 15.sp,
-                            fontWeight: FontWeight.w600,
-                            color: const Color(0xFF62AD6F),
-                            height: 18.15 / 15,
-                          ),
-                        ),
-                        SizedBox(
-                          height: 5.h,
-                        ),
-                        Text(
-                          list[index].list![0].eventDescription!,
-                          style: TextStyle(
-                            fontSize: 13.sp,
-                            fontWeight: FontWeight.w600,
-                            color: Colors.white,
-                            height: 15.73 / 13,
-                          ),
-                        ),
-                        SizedBox(
-                          height: 6.5.h,
-                        ),
-                        Divider(
-                          height: 27.h,
-                        ),
-                        Text(
-                          list[index].address!,
-                          style: TextStyle(
-                            fontSize: 13.sp,
-                            fontWeight: FontWeight.w600,
-                            color: Colors.white,
-                            height: 15.73 / 13,
-                          ),
+                          height: 15.h,
                         ),
                       ],
-                    ),
-                  );
-                },
+                    );
+                  },
+                ),
               ),
             ],
           );
