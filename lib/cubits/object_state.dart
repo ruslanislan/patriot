@@ -6,9 +6,11 @@ abstract class ObjectState {}
 class ObjectsLoading extends ObjectState {}
 
 class ObjectsLoaded extends ObjectState {
-  final List<PatriotObject> list;
+  final List<PatriotObject> objectList;
+  final List<Status> statusList;
 
-  ObjectsLoaded(this.list);
+  ObjectsLoaded(this.objectList, this.statusList);
+
 }
 
 class ObjectsError extends ObjectState {

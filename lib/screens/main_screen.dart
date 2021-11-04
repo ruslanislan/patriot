@@ -4,7 +4,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:patriot/cubits/object_cubit.dart';
 import 'package:patriot/models/patriot_object/patriot_object.dart';
+import 'package:patriot/models/status/status.dart';
 import 'package:patriot/widgets/custom_app_bar.dart';
+import 'package:patriot/widgets/object_card.dart';
+import 'package:patriot/widgets/status_card.dart';
 
 class MainScreen extends StatelessWidget {
   const MainScreen({Key? key}) : super(key: key);
@@ -28,7 +31,8 @@ class MainScreen extends StatelessWidget {
               ),
             );
           }
-          final List<PatriotObject> list = (state as ObjectsLoaded).list;
+          final List<PatriotObject> objectList = (state as ObjectsLoaded).objectList;
+          final List<Status> statusList = state.statusList;
           return Column(
             children: [
               const CustomAppBar(text: "Статус охраны"),
@@ -37,84 +41,47 @@ class MainScreen extends StatelessWidget {
               ),
               Expanded(
                 child: ListView.builder(
-                  itemCount: list.length,
+                  itemCount: objectList.length + statusList.length,
                   itemBuilder: (BuildContext context, int index) {
                     return Column(
                       children: [
-                        Container(
-                          width: 335.w,
-                          height: 155.h,
-                          padding: EdgeInsets.symmetric(
-                            horizontal: 20.w,
-                          ),
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(14.r),
-                            color: const Color(0xFF499356),
-                          ),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
+                        if (index < objectList.length)
+                          Column(
                             children: [
+                              ObjectCard(patriotObject: objectList[index]),
                               SizedBox(
-                                height: 20.h,
-                              ),
-                              SizedBox(
-                                width: 98.w,
-                                height: 12.h,
-                                child: Text(
-                                  list[index].list![0].eventDate.toString(),
-                                  style: TextStyle(
-                                    fontSize: 10.sp,
-                                    fontWeight: FontWeight.w400,
-                                    height: 1.21,
-                                    color: Colors.white.withOpacity(0.4),
-                                  ),
-                                ),
-                              ),
-                              SizedBox(
-                                height: 17.h,
-                              ),
-                              Text(
-                                list[index].list![0].eventName!,
-                                style: TextStyle(
-                                  fontSize: 15.sp,
-                                  fontWeight: FontWeight.w600,
-                                  color: const Color(0xFF62AD6F),
-                                  height: 18.15 / 15,
-                                ),
-                              ),
-                              SizedBox(
-                                height: 5.h,
-                              ),
-                              Text(
-                                list[index].list![0].eventDescription!,
-                                style: TextStyle(
-                                  fontSize: 13.sp,
-                                  fontWeight: FontWeight.w600,
-                                  color: Colors.white,
-                                  height: 15.73 / 13,
-                                ),
-                              ),
-                              SizedBox(
-                                height: 6.5.h,
-                              ),
-                              Divider(
-                                height: 27.h,
-                              ),
-                              Text(
-                                list[index].address!,
-                                style: TextStyle(
-                                  fontSize: 13.sp,
-                                  fontWeight: FontWeight.w600,
-                                  color: Colors.white,
-                                  height: 15.73 / 13,
-                                ),
+                                height: 15.h,
                               ),
                             ],
                           ),
-                        ),
-                        SizedBox(
-                          height: 15.h,
-                        ),
+                        if (index == objectList.length) ...[
+                          SizedBox(
+                            height: 25.h,
+                          ),
+                          SizedBox(
+                            width: 335.w,
+                            height: 22.h,
+                            child: Text(
+                              "История статусов",
+                              style: TextStyle(
+                                fontSize: 18.sp,
+                                fontWeight: FontWeight.w700,
+                                height: 21.78 / 18,
+                                color: Colors.white,
+                              ),
+                            ),
+                          ),
+                          SizedBox(
+                            height: 25.h,
+                          ),
+                        ],
+                        if (index >= objectList.length)
+                          StatusCard(
+                            status: statusList[index],
+                            patriotObject: objectList.firstWhere(
+                              (element) => statusList[index].objectId == element.id,
+                            ),
+                          ),
                       ],
                     );
                   },

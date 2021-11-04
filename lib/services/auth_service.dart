@@ -27,7 +27,7 @@ class AuthService {
         final response = await _apiProvider.login(login, password, deviceId);
         await _preferencesProvider.setToken(response['token']);
         _apiProvider.setToken(response['token']);
-        return true;
+        return response["token"] != null;
       } catch (e) {
         throw Exception('Неверный логин или пароль');
       }
